@@ -24,7 +24,6 @@ async function fetchAudiusSongs(query = "trending") {
     }).filter(song => song.src !== null);
 
     // 🔥 Update filteredSongs with the new results
-    let songs = [];
     filteredSongs = [...songs];
 
     // 🔥 Render them into the UI
@@ -828,6 +827,7 @@ function addEventListeners() {
 // Initialize the app when DOM is loaded
 
 document.addEventListener('DOMContentLoaded', initializeApp);
+
 
 
 
