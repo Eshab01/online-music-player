@@ -11,19 +11,18 @@ async function fetchAudiusSongs(query = "trending") {
     const data = await res.json();
     console.log("Audius response:", data.data[0]);
 
-    songs = data.data.map(track => ({
-    title: track.title,
-    artist: track.user.name,
-    src: `https://discoveryprovider.audius.co/v1/tracks/${track.id}/stream?app_name=akshat_tunes`,
-    cover: track.artwork && track.artwork['480x480'] 
-        ? track.artwork['480x480'] 
-        : "covers/default-cover.jpg"
-}));
+    songs = data.data.map(track => {
+    const trackId = track.id || track.track_id; // handle both cases
+    return {
+        title: track.title,
+        artist: track.user?.name || "Unknown Artist",
+        src: trackId 
+            ? `https://discoveryprovider.audius.co/v1/tracks/${trackId}/stream?app_name=akshat_tunes`
+            : null,
+        cover: track.artwork?.['480x480'] || "covers/default-cover.jpg"
+    };
+}).filter(song => song.src !== null); // remove invalid ones
 
-
-    filteredSongs = [...songs];
-    renderSongs(songs);
-}
 
 
 // DOM Elements
@@ -826,3 +825,4 @@ function addEventListeners() {
 // Initialize the app when DOM is loaded
 
 document.addEventListener('DOMContentLoaded', initializeApp);
+
