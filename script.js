@@ -376,18 +376,6 @@ async function searchSongs() {
 }
 
     
-    // Re-render songs with filtered list
-    renderSongs(filteredSongs);
-    
-    // If we have results and are currently playing, make sure the current song index is updated
-    if (isPlaying && filteredSongs.length > 0) {
-        const currentSongTitle = songs[currentSongIndex].title;
-        const newIndex = filteredSongs.findIndex(song => song.title === currentSongTitle);
-        
-        if (newIndex !== -1) {
-            currentSongIndex = newIndex;
-        }
-    }
 
 // Toggle like status for a song
 function toggleLikeSong(songTitle) {
@@ -835,5 +823,6 @@ function addEventListeners() {
 // Initialize the app when DOM is loaded
 
 document.addEventListener('DOMContentLoaded', initializeApp);
+
 
 
