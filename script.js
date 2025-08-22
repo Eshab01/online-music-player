@@ -67,6 +67,7 @@ const playlistItems = document.querySelectorAll('.playlist');
 const createPlaylistItem = document.querySelector('.playlist:last-child');
 
 // App State
+// App State
 let currentSongIndex = 0;
 let isPlaying = false;
 let isShuffled = false;
@@ -75,8 +76,11 @@ let likedSongs = JSON.parse(localStorage.getItem('likedSongs')) || [];
 let recentlyPlayed = JSON.parse(localStorage.getItem('recentlyPlayed')) || [];
 let userPlaylists = JSON.parse(localStorage.getItem('userPlaylists')) || [];
 let lastPlayedSong = localStorage.getItem('lastPlayedSong');
-let filteredSongs = [...songs]; // Clone the original songs array
+
+let songs = [];              // ✅ declare songs first
+let filteredSongs = [...songs]; 
 let activePlaylist = 'library'; // 'library', 'favorites', 'recent', or a custom playlist name
+
 
 // Initialize the app
 function initializeApp() {
@@ -824,6 +828,7 @@ function addEventListeners() {
 // Initialize the app when DOM is loaded
 
 document.addEventListener('DOMContentLoaded', initializeApp);
+
 
 
 
