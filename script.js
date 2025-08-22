@@ -9,13 +9,17 @@ async function fetchAudiusSongs(query = "trending") {
 
     const res = await fetch(url);
     const data = await res.json();
+    console.log("Audius response:", data.data[0]);
 
     songs = data.data.map(track => ({
-        title: track.title,
-        artist: track.user.name,
-        src: `${track.stream_url}?app_name=akshat_tunes`, // ✅ correct stream URL
-        cover: track.artwork['480x480'] || "covers/default-cover.jpg"
-    }));
+    title: track.title,
+    artist: track.user.name,
+    src: `https://discoveryprovider.audius.co/v1/tracks/${track.id}/stream?app_name=akshat_tunes`,
+    cover: track.artwork && track.artwork['480x480'] 
+        ? track.artwork['480x480'] 
+        : "covers/default-cover.jpg"
+}));
+
 
     filteredSongs = [...songs];
     renderSongs(songs);
@@ -820,4 +824,5 @@ function addEventListeners() {
 }
 
 // Initialize the app when DOM is loaded
+
 document.addEventListener('DOMContentLoaded', initializeApp);
